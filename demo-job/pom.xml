@@ -18,5 +18,18 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>demo-service</artifactId>
+            <version>${demo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>demo-common</artifactId>
+            <version>${demo.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -19,13 +19,6 @@
         <maven.compiler.target>8</maven.compiler.target>
         <flyway.version>5.2.4</flyway.version>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-    </dependencies>
     
     <!-- 区分不同环境 -->
     <profiles>
@@ -37,7 +30,18 @@
             </activation>
             <properties>
                 <packaging.type>jar</packaging.type>
+                <profile.active>dev</profile.active>
             </properties>
+            
+            <dependencies>
+                <!-- fastjson -->
+                <dependency>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>fastjson</artifactId>
+                    <version>1.2.11</version>
+                </dependency>
+            </dependencies>
+            
             <build>
                 <plugins>
                     <plugin>
@@ -73,6 +77,57 @@
     </profiles>
 
     <packaging>${packaging.type}</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--freemarker-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <!--			<scope>test</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>demo-service</artifactId>
+            <version>${demo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>demo-common</artifactId>
+            <version>${demo.version}</version>
+        </dependency>
+        <!-- lombok 插件 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!--   jasypt加密工具 -->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>3.0.5</version>
+        </dependency>
+        
+    </dependencies>
     
     <build>
         <plugins>
