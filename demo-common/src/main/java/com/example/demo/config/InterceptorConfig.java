@@ -14,8 +14,8 @@ public class InterceptorConfig {
     public InterceptorConfig() {
     }
 
-    @Bean
-    public LoginInterceptor getLoginInterceptor() {
-        return new LoginInterceptor();
-    }
+//    @Bean
+//    public LoginInterceptor getLoginInterceptor() {
+//        return new LoginInterceptor();
+//    }
 }

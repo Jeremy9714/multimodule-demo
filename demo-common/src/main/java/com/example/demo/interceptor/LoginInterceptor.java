@@ -24,22 +24,21 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        HttpSession session = request.getSession();
-//        JSONObject jsonUser = (JSONObject) session.getAttribute("_Demo_Session_Token_");
-//        if (jsonUser == null) {
-//            if (StringUtils.isNotBlank(this.loginUrl)) {
-//                if (!this.loginUrl.startsWith("/")) {
-//                    this.loginUrl = "/" + this.loginUrl;
-//                }
-//                response.sendRedirect(request.getContextPath() + this.loginUrl);
-//            } else {
-//                response.sendRedirect(request.getContextPath() + "/login");
-//            }
-//            return false;
-//        } else {
-//            return true;
-//        }
-        return true;
+        HttpSession session = request.getSession();
+        JSONObject jsonUser = (JSONObject) session.getAttribute("_Demo_Session_Token_");
+        if (jsonUser == null) {
+            if (StringUtils.isNotBlank(this.loginUrl)) {
+                if (!this.loginUrl.startsWith("/")) {
+                    this.loginUrl = "/" + this.loginUrl;
+                }
+                response.sendRedirect(request.getContextPath() + this.loginUrl);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/login");
+            }
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override

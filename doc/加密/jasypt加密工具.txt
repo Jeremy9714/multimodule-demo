@@ -1,0 +1,50 @@
+加密工具为password_encrypt.cmd，目前加密的密钥默认为DataServicePlatform，建议整个平台统一，也可以在脚本中修改。
+
+set PASSWORD=DataServicePlatform
+生成加密字符串
+调用加密工具，调用方式为
+
+/path/to/password_encrypt.cmd PASSWORD_TO_ENCRYPT
+例如，加密123456a?
+
+password_encrypt.cmd 123456a?
+加密结果如下
+
+----ENVIRONMENT-----------------
+
+Runtime: Oracle Corporation Java HotSpot(TM) Client VM 25.171-b11
+
+
+
+----ARGUMENTS-------------------
+
+algorithm: PBEWithMD5AndDES
+input: 123456a?
+password: DataServicePlatform
+
+
+
+----OUTPUT----------------------
+
+9hxvYNK1EVft3wOTzbFHkiiA5/LagCky
+OUTPUT部分即为加密后的结果。
+
+用ENC()将加密结果包括后即为需要加密的配置项的值。
+
+修改工程
+1、修改pom.xml，增加以下依赖
+
+<dependency>
+    <groupId>com.github.ulisesbocchio</groupId>
+    <artifactId>jasypt-spring-boot-starter</artifactId>
+    <version>1.2</version>
+</dependency>
+2、修改配置文件application.properties，增加加密密钥的配置
+
+jasypt.encryptor.password=DataServicePlatform
+如果不修改配置文件，也可以在运行时通过命令行参数传入，示例如下
+
+java -jar /path/to/springboot-jar.jar --jasypt.encryptor.password=DataServicePlatform
+3、修改需要加密的配置项，格式为ENC(after_encrypted_string)，例如数据库密码
+
+spring.datasource.password=ENC(26+O4lhp596Ffg0feRzgyx/VORHC6WdX)
