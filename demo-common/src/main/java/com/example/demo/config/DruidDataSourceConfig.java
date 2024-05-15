@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 import lombok.Data;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Data
 @Configuration
+@ConditionalOnProperty(prefix = "global.multi-datasource", value = "enable", havingValue = "0")
 @ConfigurationProperties(
         value = "spring.datasource",
         ignoreInvalidFields = true,
@@ -38,5 +40,5 @@ public class DruidDataSourceConfig {
 
     public DruidDataSourceConfig() {
     }
-    
+
 }

@@ -1,12 +1,16 @@
 package com.example.demo.tutorial.test;
 
 import com.example.demo.controller.BaseController;
+import com.example.demo.tutorial.test.entity.Student;
+import com.example.demo.tutorial.test.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @Description:
@@ -17,10 +21,19 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping
 public class TestController extends BaseController {
 
+    @Autowired
+    private StudentService studentService;
+
     @GetMapping("/index")
     public String index(HttpServletRequest request, ModelMap map) {
         map.put("title", "主菜单");
         map.put("msg", "标题");
         return this.getView("index", map);
+    }
+
+    @GetMapping("/dbtest")
+    public void dbTest() {
+        List<Student> students = studentService.queryStudents();
+        students.forEach(System.out::println);
     }
 }

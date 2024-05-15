@@ -21,6 +21,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -45,6 +46,7 @@ import java.util.Properties;
 @EnableTransactionManagement(
         order = 2
 )
+@ConditionalOnProperty(prefix = "global.multi-datasource", value = "enable", havingValue = "0")
 @AutoConfigureAfter(DataSourceConfig.class)
 @MapperScan(basePackages = {"com.example.demo.**.dao", "mapper"})
 public class MybatisConfig extends MybatisAutoConfiguration {
