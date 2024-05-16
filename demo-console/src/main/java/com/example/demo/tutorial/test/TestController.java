@@ -36,4 +36,9 @@ public class TestController extends BaseController {
         List<Student> students = studentService.queryStudents();
         students.forEach(System.out::println);
     }
+
+    @GetMapping("/multidbIndex")
+    public String multiDbIndex(HttpServletRequest request, ModelMap map) {
+        return this.getView("multidb/index", map);
+    }
 }
