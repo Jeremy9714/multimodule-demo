@@ -1,0 +1,105 @@
+.form-wizard .steps>li>a.step>.desc {
+    /* font-weight: 300; */
+    margin-top: 10px;
+}
+
+.form-wizard .steps>li>a.step>.number {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 300
+}
+
+.form-wizard .steps,
+.form-wizard .steps>li>a.step {
+    background: none;
+    border: 0;
+    box-shadow: none;
+    filter: none
+}
+
+.form-wizard .tab-nav {
+    position: relative;
+}
+
+.form-wizard .progress {
+    margin-bottom: 30px;
+    position: absolute;
+    top: 21px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #dee3e9;
+}
+
+.form-wizard .progress-bar {
+    background-color: #3588dd;
+}
+
+.form-wizard .steps {
+    /* padding: 5px 0; */
+    margin-top: 5px;
+    margin-bottom: 20px
+}
+
+.form-wizard .steps>li>a.step {
+    color: inherit;
+    padding: 0;
+}
+
+.form-wizard .steps>li>a.step:hover {
+    background: 0 0
+}
+
+.form-wizard .steps>li>a.step>.number {
+    background-color: #eee;
+    text-align: center !important;
+    padding: 11px 15px 13px;
+    /* margin-right: 10px; */
+    height: 45px;
+    width: 45px;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important
+}
+
+.form-wizard .steps>li>a.step>.desc>i {
+    display: none
+}
+
+.form-wizard .steps>li.active>a.step .number {
+    background-color: #3588dd;
+    color: #fff
+}
+
+.form-wizard .steps>li.active>a.step .desc {
+    color: #333
+}
+
+.form-wizard .steps>li.done>a.step .number {
+    background-color: #3588dd;
+    color: #fff
+}
+
+.form-wizard .steps>li.done>a.step .desc {
+    /* color: #333 */
+}
+
+.form-wizard .steps>li.done>a.step .desc i {
+    font-size: 12px;
+    font-weight: 400;
+    color: #999;
+    display: inline-block
+}
+
+/* @media (min-width:768px) and (max-width:1200px) {
+    .form-wizard .step .desc {
+        margin-top: 10px;
+        display: block
+    }
+}
+
+@media (max-width:768px) {
+    .form-wizard .steps>li>a {
+        text-align: left
+    }
+} */

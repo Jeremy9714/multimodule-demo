@@ -1,0 +1,240 @@
+{
+  "id": "3004141",
+  "name": "数据服务平台",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "26407918",
+      "name": "数据精准授权中心",
+      "font_class": "shujujingzhunshouquanzhongxin",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "26407770",
+      "name": "数据集成",
+      "font_class": "Symbol-1-2",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "26407771",
+      "name": "数据质量（数据湖）",
+      "font_class": "Symbol-1-8",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "26407772",
+      "name": "数据填报（数据湖）",
+      "font_class": "Symbol-1-1",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "26407773",
+      "name": "数据标签（数据湖）",
+      "font_class": "Symbol-1-10",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "26407774",
+      "name": "元数据管理（数据湖）",
+      "font_class": "Symbol-1-6",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "26407775",
+      "name": "数据图谱（数据湖）",
+      "font_class": "Symbol-1-13",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "26407776",
+      "name": "服务管理",
+      "font_class": "Symbol-1-16",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "26407777",
+      "name": "数据微应用",
+      "font_class": "Symbol-1-12",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "26407778",
+      "name": "服务开发（数据湖）",
+      "font_class": "Symbol-1-11",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "26407779",
+      "name": "数据授权",
+      "font_class": "Symbol-1-18",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "26407780",
+      "name": "数据开发（数据湖）",
+      "font_class": "Symbol-1-9",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "26407781",
+      "name": "数据科学（数据湖）",
+      "font_class": "Symbol-1-14",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "26397893",
+      "name": "供需对接",
+      "font_class": "Symbol-1-17",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "26397894",
+      "name": "绩效考核",
+      "font_class": "Symbol-1-23",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "26397895",
+      "name": "级联对接",
+      "font_class": "jilianduijie",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "26397896",
+      "name": "数据返还",
+      "font_class": "Symbol-1-20",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "26397897",
+      "name": "门户运营",
+      "font_class": "menhuyunying",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "26397898",
+      "name": "数据标准",
+      "font_class": "Symbol-1-4",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "26397899",
+      "name": "数据监察",
+      "font_class": "Symbol-1-21",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "26397901",
+      "name": "数据可视化",
+      "font_class": "Symbol-1-15",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "26397902",
+      "name": "数据目录",
+      "font_class": "Symbol-1-5",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "26397903",
+      "name": "数据交换",
+      "font_class": "Symbol-1-19",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "26397904",
+      "name": "数据申请授权",
+      "font_class": "shujushenqingshouquan",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "26397905",
+      "name": "数据应用开发",
+      "font_class": "shujuyingyongkaifa",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "26397906",
+      "name": "数据资源",
+      "font_class": "Symbol-1-7",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "26397907",
+      "name": "数据融合",
+      "font_class": "shujuronghe",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "26397908",
+      "name": "数据资源看板",
+      "font_class": "shujuziyuankanban",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "26397909",
+      "name": "信息化资产",
+      "font_class": "Symbol-1-3",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "26397910",
+      "name": "运营服务",
+      "font_class": "yunyingfuwu",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "26397911",
+      "name": "运维监控",
+      "font_class": "Symbol-1-22",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "26397912",
+      "name": "知识库",
+      "font_class": "zhishiku",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "1079476",
+      "name": "警示",
+      "font_class": "jingshi",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    }
+  ]
+}
