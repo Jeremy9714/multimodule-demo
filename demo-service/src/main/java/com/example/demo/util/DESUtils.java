@@ -1,27 +1,21 @@
 package com.example.demo.util;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;
-import java.io.*;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Locale;
 
 /**
  * @Description:
  * @Author: zhangchy05 on 2024/5/15 16:41
  * @Version: 1.0
  */
-@Slf4j
 public class DESUtils {
     private static final String ALGORITHM = "DES";
     private static final String DEFAULT_KEY = "@#$%^$%^%^&*&hwx";
-    
-    public DESUtils(){}
+
+    public DESUtils() {
+    }
 
     public static String encrypt(String originalString) throws Exception {
         byte[] bEn = encrypt(originalString.getBytes(), "@#$%^$%^%^&*&hwx".getBytes());
@@ -68,11 +62,11 @@ public class DESUtils {
     public static String parseHexStringFromBytes(byte[] text) {
         StringBuffer buff = new StringBuffer(0);
 
-        for(int i = 0; i < text.length; ++i) {
+        for (int i = 0; i < text.length; ++i) {
             byte _byte = text[i];
-            byte _bytel = (byte)(_byte & 15);
-            byte _byteh = (byte)(_byte & 240);
-            getHexString(buff, (byte)(_byteh >> 4 & 15));
+            byte _bytel = (byte) (_byte & 15);
+            byte _byteh = (byte) (_byte & 240);
+            getHexString(buff, (byte) (_byteh >> 4 & 15));
             getHexString(buff, _bytel);
         }
 
@@ -82,7 +76,7 @@ public class DESUtils {
     private static void getHexString(StringBuffer buffer, byte value) {
         if (value - 9 > 0) {
             int index = value - 9;
-            switch(index) {
+            switch (index) {
                 case 1:
                     buffer.append("A");
                     break;
@@ -117,7 +111,7 @@ public class DESUtils {
                 int n = hexString.length() / 2;
                 byte[] bytes = new byte[n];
 
-                for(int i = 0; i < n; ++i) {
+                for (int i = 0; i < n; ++i) {
                     if (sb1.length() > 1) {
                         sb1.deleteCharAt(0);
                         sb1.deleteCharAt(0);
@@ -127,13 +121,27 @@ public class DESUtils {
                     sb1.append(sb.charAt(1));
                     sb.deleteCharAt(0);
                     sb.deleteCharAt(0);
-                    bytes[i] = (byte)Integer.parseInt(sb1.toString(), 16);
+                    bytes[i] = (byte) Integer.parseInt(sb1.toString(), 16);
                 }
 
                 return bytes;
             }
         } else {
             return new byte[0];
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println("-------------开始加密----------------");
+            String pwd = args[0];
+            System.out.println("密码：" + pwd + "\t加密后：" + encrypt(pwd));
+
+            System.out.println("-------------开始解密----------------");
+            String cipherText = encrypt(pwd);
+            System.out.println("解密后：" + decrypt(cipherText));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
