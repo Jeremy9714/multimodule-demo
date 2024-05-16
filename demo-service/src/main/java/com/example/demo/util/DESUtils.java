@@ -4,10 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.*;
-import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.spec.DESKeySpec;
 import java.io.*;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Locale;
 
 /**
  * @Description:
@@ -15,112 +17,123 @@ import java.security.NoSuchAlgorithmException;
  * @Version: 1.0
  */
 @Slf4j
-public class AESUtils {
-
-    private static String aes_key_path = "aes.key";
-
-    // 加载密钥文件
-    private static SecretKey privateKey = null;
-
-//    static {
-//        try {
-//            InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(aes_key_path);
-//            byte[] bytes = toByteArray(is);
-//            privateKey = new SecretKeySpec(bytes, "aes");
-//        } catch (FileNotFoundException e) {
-//            log.error("未找到密钥文件: ", aes_key_path, e);
-//        } catch (IOException e) {
-//            log.error("读取密钥文件出错: ", e);
-//        }
-//    }
+public class DESUtils {
+    private static final String ALGORITHM = "DES";
+    private static final String DEFAULT_KEY = "@#$%^$%^%^&*&hwx";
     
-    static{
-        ObjectInputStream ois = null;
+    public DESUtils(){}
 
-        try {
-            InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(aes_key_path);
-            ois = new ObjectInputStream(inputStream);
-            privateKey = (SecretKey)ois.readObject();
-        } catch (FileNotFoundException var14) {
-            log.error("未找到密钥文件：" + aes_key_path, var14);
-        } catch (IOException var15) {
-            log.error("读取密钥文件出错＿" + aes_key_path, var15);
-        } catch (ClassNotFoundException var16) {
-            log.error((String) null, var16);
-        } finally {
-            if (ois != null) {
-                try {
-                    ois.close();
-                } catch (IOException var13) {
-                    log.error("", var13);
-                }
+    public static String encrypt(String originalString) throws Exception {
+        byte[] bEn = encrypt(originalString.getBytes(), "@#$%^$%^%^&*&hwx".getBytes());
+        return parseHexStringFromBytes(bEn);
+    }
+
+    public static String encrypt(String originalString, String key) throws Exception {
+        byte[] bEn = encrypt(originalString.getBytes(), key.getBytes());
+        return parseHexStringFromBytes(bEn);
+    }
+
+    private static byte[] encrypt(byte[] originalByte, byte[] key) throws Exception {
+        SecureRandom sr = new SecureRandom();
+        DESKeySpec dks = new DESKeySpec(key);
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+        SecretKey keySpec = keyFactory.generateSecret(dks);
+        Cipher cipher = Cipher.getInstance("DES");
+        cipher.init(1, keySpec, sr);
+        return cipher.doFinal(originalByte);
+    }
+
+    public static String decrypt(String encryptedString) throws Exception {
+        byte[] bEn = parseBytesByHexString(encryptedString);
+        byte[] orginal = decrypt(bEn, "@#$%^$%^%^&*&hwx".getBytes());
+        return new String(orginal);
+    }
+
+    public static String decrypt(String encryptedString, String key) throws Exception {
+        byte[] bEn = parseBytesByHexString(encryptedString);
+        byte[] orginal = decrypt(bEn, key.getBytes());
+        return new String(orginal);
+    }
+
+    private static byte[] decrypt(byte[] encryptedByte, byte[] key) throws Exception {
+        SecureRandom sr = new SecureRandom();
+        DESKeySpec dks = new DESKeySpec(key);
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+        SecretKey keySpec = keyFactory.generateSecret(dks);
+        Cipher cipher = Cipher.getInstance("DES");
+        cipher.init(2, keySpec, sr);
+        return cipher.doFinal(encryptedByte);
+    }
+
+    public static String parseHexStringFromBytes(byte[] text) {
+        StringBuffer buff = new StringBuffer(0);
+
+        for(int i = 0; i < text.length; ++i) {
+            byte _byte = text[i];
+            byte _bytel = (byte)(_byte & 15);
+            byte _byteh = (byte)(_byte & 240);
+            getHexString(buff, (byte)(_byteh >> 4 & 15));
+            getHexString(buff, _bytel);
+        }
+
+        return buff.toString();
+    }
+
+    private static void getHexString(StringBuffer buffer, byte value) {
+        if (value - 9 > 0) {
+            int index = value - 9;
+            switch(index) {
+                case 1:
+                    buffer.append("A");
+                    break;
+                case 2:
+                    buffer.append("B");
+                    break;
+                case 3:
+                    buffer.append("C");
+                    break;
+                case 4:
+                    buffer.append("D");
+                    break;
+                case 5:
+                    buffer.append("E");
+                    break;
+                case 6:
+                    buffer.append("F");
             }
+        } else {
+            buffer.append(String.valueOf(value));
+        }
 
+    }
+
+    public static byte[] parseBytesByHexString(String hexString) {
+        if (hexString != null && hexString.length() != 0 && !hexString.equals("")) {
+            if (hexString.length() % 2 != 0) {
+                throw new IllegalArgumentException("hexString length must be an even number!");
+            } else {
+                StringBuffer sb = new StringBuffer(hexString);
+                StringBuffer sb1 = new StringBuffer(2);
+                int n = hexString.length() / 2;
+                byte[] bytes = new byte[n];
+
+                for(int i = 0; i < n; ++i) {
+                    if (sb1.length() > 1) {
+                        sb1.deleteCharAt(0);
+                        sb1.deleteCharAt(0);
+                    }
+
+                    sb1.append(sb.charAt(0));
+                    sb1.append(sb.charAt(1));
+                    sb.deleteCharAt(0);
+                    sb.deleteCharAt(0);
+                    bytes[i] = (byte)Integer.parseInt(sb1.toString(), 16);
+                }
+
+                return bytes;
+            }
+        } else {
+            return new byte[0];
         }
     }
-
-    // 使用密钥文件中的密钥进行加密解密
-    public static String encode(String content) {
-        return encode(content, privateKey);
-    }
-
-    public static String decode(String cipherText) {
-        return decode(cipherText, privateKey);
-    }
-
-    public static String encode(String content, SecretKey key) {
-        try {
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.ENCRYPT_MODE, key);
-            byte[] b = cipher.doFinal(content.getBytes("utf-8"));
-            return Base64.encodeBase64String(b);
-        } catch (NoSuchPaddingException e) {
-            log.error("", e);
-        } catch (InvalidKeyException e) {
-            log.error("", e);
-        } catch (IllegalBlockSizeException e) {
-            log.error("", e);
-        } catch (BadPaddingException e) {
-            log.error("", e);
-        } catch (UnsupportedEncodingException e) {
-            log.error("", e);
-        } catch (NoSuchAlgorithmException e) {
-            log.error("", e);
-        }
-        return null;
-    }
-    
-
-    public static String decode(String cipherText, SecretKey key) {
-        try {
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(cipher.DECRYPT_MODE, key);
-            return new String(cipher.doFinal(Base64.decodeBase64(cipherText)), "utf-8");
-        } catch (NoSuchPaddingException e) {
-            log.error("解密{}出错", cipherText, e);
-        } catch (NoSuchAlgorithmException e) {
-            log.error("解密{}出错", cipherText, e);
-        } catch (InvalidKeyException e) {
-            log.error("解密{}出错", cipherText, e);
-        } catch (BadPaddingException e) {
-            log.error("解密{}出错", cipherText, e);
-        } catch (UnsupportedEncodingException e) {
-            log.error("解密{}出错", cipherText, e);
-        } catch (IllegalBlockSizeException e) {
-            log.error("解密{}出错", cipherText, e);
-        }
-        return cipherText;
-    }
-
-    private static byte[] toByteArray(InputStream is) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024 * 4];
-        int n = 0;
-        while ((n = is.read(buffer)) != -1) {
-            bos.write(buffer, 0, n);
-        }
-        return bos.toByteArray();
-    }
-
-
 }

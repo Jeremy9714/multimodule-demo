@@ -1,10 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<script src="${base!}/static/libs/vendor/jquery.min.js" type="text/javascript"></script>
+<script src="${base!}/static/libs/vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${base!}/static/js/common.js" type="text/javascript"></script>
+<script src="${base!}/static/js/page.js" type="text/javascript"></script>
+<script src="${base!}/static/libs/vendor/layer/layer.js" type="text/javascript"></script>
+<script src="${base!}/static/libs/assets/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="${base!}/static/libs/assets/jquery-validation/js/localization/messages_zh.js"></script>
+<!-- datatable -->
+<script src="${base!}/static/libs/assets/jquery.dataTables/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="${base!}/static/libs/assets/jquery.dataTables/dataTables.fixedColumns.min.js" type="text/javascript"></script>
+<script src="${base!}/static/libs/assets/jquery.dataTables/fixedHeader.dataTables.min.js" type="text/javascript"></script>
+<script src="${base!}/static/libs/assets/jquery.dataTables/dsp-datatable.js" type="text/javascript"></script>
+
+<!-- jstree -->
+<script src="${base!}/static/libs/assets/jstree/dist/jstree.js" type="text/javascript"></script>
+<script src="${base!}/static/libs/assets/bootstrap-wizard/jquery.bootstrap.wizard.min.js" type="text/javascript"></script>
+<script src="${base!}/static/libs/vendor/jquery.serializejson.min.js" type="text/javascript" ></script>
+<script src="${base!}/static/libs/assets/jquery.nicescroll/jquery.nicescroll.min.js" type="text/javascript"></script>
+<!--&lt;!&ndash; jstree &ndash;&gt;-->
+<script src="${base!}/static/libs/assets/jstree/dist/jstree.min.js" type="text/javascript"></script>
+<script src="${base!}/static/libs/assets/jquery-steps/jquery.steps.min.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+    var DEFAULT_CONTEXT_PATH = "${base!}";
+
+    $.fn.serializeObject = function(){
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    }
+</script>

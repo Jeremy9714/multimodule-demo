@@ -1,4 +1,4 @@
-package com.example.demo.tutorial.multidb.dao;
+package com.example.demo.tutorial.multidb.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -17,6 +17,10 @@ import java.util.Date;
 @TableName("catalog")
 public class Catalog implements Serializable {
     public static final long serialVersionUID = 3465345L;
+
+    public static final String PUBLISHED = "1";
+    public static final String DELETED = "0";
+
     @TableId
     private String id;
     @TableField("cata_title")
@@ -33,8 +37,12 @@ public class Catalog implements Serializable {
     private String regionCode;
     @TableField("region_name")
     private String regionName;
+    private String status;
     @TableField("open_type")
     private Integer openType;
+    @TableField("create_time")
     private Date createTime;
+    @TableField("update_time")
     private Date updateTime;
+    
 }
