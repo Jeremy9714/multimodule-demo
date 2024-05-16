@@ -34,14 +34,6 @@ public class MultiDbController extends BaseController {
     @Autowired
     private CatalogGroupService catalogGroupService;
 
-    @GetMapping("/test")
-    public void testMultiDs() {
-        List<EntityA> dataFromOne = multiDSService.getDataFromOne();
-        dataFromOne.forEach(System.out::println);
-        List<EntityB> dataFromTwo = multiDSService.getDataFromTwo();
-        dataFromTwo.forEach(System.out::println);
-    }
-
     @GetMapping("/index")
     public String getIndex(HttpServletRequest request, ModelMap map) {
         return this.getView("/multidb/index", map);
@@ -62,5 +54,13 @@ public class MultiDbController extends BaseController {
 
     @PostMapping("/detail")
     public void getCatalogDetail(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    @GetMapping("/test")
+    public void testMultiDs() {
+        List<EntityA> dataFromOne = multiDSService.getDataFromOne();
+        dataFromOne.forEach(System.out::println);
+        List<EntityB> dataFromTwo = multiDSService.getDataFromTwo();
+        dataFromTwo.forEach(System.out::println);
     }
 }
