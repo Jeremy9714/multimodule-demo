@@ -43,8 +43,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/static/**") // 对外暴露路径
+                .addResourceLocations("classpath:/static/"); // 内部路径
     }
     
 //    public void configurePathMatch(PathMatchConfigurer configurer){
@@ -59,7 +59,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //    public LocaleResolver localeResolver() {
 //        SessionLocaleResolver slr = new SessionLocaleResolver();
 //        slr.setDefaultLocale(Locale.CHINA);
-//        return slr;
+//        return slr;l
 //    }
 //
 //    public void addInterceptors(InterceptorRegistry registry) {

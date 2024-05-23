@@ -16,7 +16,7 @@ public class PageConverterUtils {
     public PageConverterUtils() {
     }
 
-    public static JSONObject jsonObject(Page page, int draw) {
+    public static JSONObject toDataTable(Page page, int draw) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("draw", draw);
         jsonObject.put("recordsTotal", (long) page.getTotal());
@@ -26,4 +26,5 @@ public class PageConverterUtils {
         jsonObject.put("data", jsonArray);
         return jsonObject;
     }
+
 }

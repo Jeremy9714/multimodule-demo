@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.tutorial.multidb.dao.CatalogDao">
+    <select id="selectCatalogList" resultType="com.example.demo.tutorial.multidb.entity.Catalog">
+        select * from catalog
+        <where>
+            <if test="cataTitle != null and cataTitle != ''">
+                cata_title like concat('%', #{cataTitle}, '%')
+            </if>
+            <if test="groupId != null and groupId != ''">
+                and group_id = #{groupId}
+            </if>
+        </where>
+    </select>
+</mapper>
