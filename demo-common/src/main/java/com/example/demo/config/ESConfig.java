@@ -1,7 +1,13 @@
 package com.example.demo.config;
 
+import io.searchbox.client.JestClient;
 import org.apache.http.HttpHost;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -23,6 +29,12 @@ public class ESConfig {
     @Value("${spring.elasticsearch.nodes:localhost:9200}")
     private String clusterNodes;
 
+    @Value("${spring.elasticsearch.nodes.username:}")
+    private String username;
+
+    @Value("${spring.elasticsearch.nodes.password:}")
+    private String password;
+
     @Bean
     public RestHighLevelClient highLevelClient() {
         String[] nodes = clusterNodes.split(",");
@@ -31,6 +43,16 @@ public class ESConfig {
             String node = nodes[i];
             httpHostArr[i] = new HttpHost(node.split(":")[0], Integer.valueOf(node.split(":")[1]), "http");
         }
-        return new RestHighLevelClient(RestClient.builder(httpHostArr));
+
+        CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
+
+        RestClientBuilder builder = RestClient.builder(httpHostArr).setHttpClientConfigCallback(httpClientBuilder -> {
+            httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+            return httpClientBuilder;
+        });
+        
+        return new RestHighLevelClient(builder);
     }
+    
 }
