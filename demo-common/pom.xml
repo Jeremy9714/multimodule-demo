@@ -144,6 +144,13 @@
             <version>2.9.2</version>
         </dependency>
 
+<!--        &lt;!&ndash; swagger的springCloud依赖 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.google.guava</groupId>-->
+<!--            <artifactId>guava</artifactId>-->
+<!--            <version>27.0-android</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
@@ -153,7 +160,13 @@
         <dependency>
             <groupId>io.searchbox</groupId>
             <artifactId>jest</artifactId>
-<!--            <version>6.3.1</version>-->
+            <exclusions>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+            </exclusions>
+            <!--            <version>6.3.1</version>-->
         </dependency>
 
         <dependency>
