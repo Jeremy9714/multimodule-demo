@@ -1,6 +1,6 @@
 package com.example.demo.tutorial.es;
 
-import com.example.demo.constant.AjaxResult;
+import com.example.demo.constant.es.AjaxResult;
 import com.example.demo.tutorial.es.entity.User;
 import com.example.demo.tutorial.es.service.OperateDocService;
 import org.springframework.beans.factory.annotation.Autowired;

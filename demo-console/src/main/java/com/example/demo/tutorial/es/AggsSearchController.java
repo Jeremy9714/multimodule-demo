@@ -1,7 +1,7 @@
 package com.example.demo.tutorial.es;
 
 import com.alibaba.fastjson.JSONArray;
-import com.example.demo.constant.AjaxResult;
+import com.example.demo.constant.es.AjaxResult;
 import com.example.demo.tutorial.es.service.AggsSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

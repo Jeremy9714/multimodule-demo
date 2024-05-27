@@ -2,7 +2,7 @@ package com.example.demo.tutorial.es.service;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
-import com.example.demo.constant.AjaxResult;
+import com.example.demo.constant.es.AjaxResult;
 import com.example.demo.tutorial.es.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.DocWriteResponse;
