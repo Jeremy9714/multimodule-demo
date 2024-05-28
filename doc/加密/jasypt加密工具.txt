@@ -1,6 +1,6 @@
 加密工具为password_encrypt.cmd，目前加密的密钥默认为DataServicePlatform，建议整个平台统一，也可以在脚本中修改。
 
-set PASSWORD=DataServicePlatform
+set PASSWORD=MyRandomPwd
 生成加密字符串
 调用加密工具，调用方式为
 

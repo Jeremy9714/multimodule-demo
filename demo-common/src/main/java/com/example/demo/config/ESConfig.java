@@ -1,6 +1,6 @@
 package com.example.demo.config;
 
-import io.searchbox.client.JestClient;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -44,15 +44,19 @@ public class ESConfig {
             httpHostArr[i] = new HttpHost(node.split(":")[0], Integer.valueOf(node.split(":")[1]), "http");
         }
 
-        CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
+        if (StringUtils.isNotBlank(username) && StringUtils.isNotBlank(password)) {
+            CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+            credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
 
-        RestClientBuilder builder = RestClient.builder(httpHostArr).setHttpClientConfigCallback(httpClientBuilder -> {
-            httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
-            return httpClientBuilder;
-        });
-        
-        return new RestHighLevelClient(builder);
+            RestClientBuilder builder = RestClient.builder(httpHostArr).setHttpClientConfigCallback(httpClientBuilder -> {
+                httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+                return httpClientBuilder;
+            });
+            return new RestHighLevelClient(builder);
+        } else {
+            RestClientBuilder builder = RestClient.builder(httpHostArr);
+            return new RestHighLevelClient(builder);
+        }
     }
-    
+
 }
