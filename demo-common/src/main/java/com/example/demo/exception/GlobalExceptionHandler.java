@@ -16,6 +16,7 @@ import cn.hutool.core.util.ObjectUtil;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    
     @ExceptionHandler(BaseException.class)
     public AjaxResult<?> commonException(BaseException be) {
         Object requestId = RequestContextHolder.getRequestAttributes()

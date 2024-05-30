@@ -15,7 +15,7 @@ public class BaseException extends RuntimeException {
     private static final long serialVersionUID = 1998063243843477017L;
     private static final Logger logger = LoggerFactory.getLogger(BaseException.class);
     private int errorCode;
-//    private String errorView;
+    //    private String errorView;
     private String errorMessage;
 
     public BaseException(String errorMessage) {
@@ -28,6 +28,12 @@ public class BaseException extends RuntimeException {
         if (logger.isDebugEnabled()) {
             logger.debug("{code:" + errorCode + ",msg:" + errorMessage + "}");
         }
+    }
+
+    public BaseException(int errorCode, String errorMessage, Throwable t) {
+        super(t);
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
     }
 
 //    public BaseException(String errorView, int errorCode, String errorMessage) {
