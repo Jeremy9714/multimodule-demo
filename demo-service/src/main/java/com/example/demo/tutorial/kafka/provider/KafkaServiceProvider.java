@@ -32,7 +32,7 @@ public class KafkaServiceProvider {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    @Autowired
+    @Autowired(required = false)
     private KafkaConsumer<String, String> kafkaConsumer;
 
     @Value("${kafka.test-topic:}")
