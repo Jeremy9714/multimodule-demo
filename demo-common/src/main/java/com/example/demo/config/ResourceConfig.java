@@ -54,7 +54,7 @@ public class ResourceConfig {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         if (StringUtils.isNotBlank(this.getBasename())) {
             if (this.getBasename().indexOf(",") == 1) {
-                messageSource.setBasenames(this.getBasename());
+                messageSource.setBasename(this.getBasename());
             } else {
                 messageSource.setBasenames(this.getBasename().split(","));
             }

@@ -47,10 +47,14 @@ public class MultiDbController extends BaseController {
     }
 
     @PostMapping("/getCatalogList")
+    @ResponseBody
     public void getCatalogList(HttpServletRequest request, HttpServletResponse response) {
         int offset = this.getParaInt("start");
         int limit = this.getParaInt("length");
         int draw = this.getParaInt("draw");
+        if (offset == 0 && limit == 0) {
+            limit = 10;
+        }
         int current = (offset + limit) / limit;
         Page<Catalog> page = new Page<>();
         Map<String, Object> paramMap = new HashMap<>();
@@ -58,8 +62,8 @@ public class MultiDbController extends BaseController {
         String groupId = this.getPara("groupId");
         paramMap.put("cataTitle", cataTitle);
         paramMap.put("groupId", groupId);
-        page.setCurrent(current);
         page.setSize(limit);
+        page.setCurrent(current);
         page = catalogService.getCatalogList(page, null);
         this.renderJson(response, PageConverterUtils.toDataTable(page, draw).toString());
     }

@@ -26,7 +26,7 @@ public class CatalogServiceImpl extends ServiceImpl<CatalogDao, Catalog> impleme
 
     @Override
     public Page<Catalog> getCatalogList(Page<Catalog> page, Map<String, Object> paramMap) {
-        List<Catalog> catalogList = catalogDao.selectCatalogList();
+        List<Catalog> catalogList = catalogDao.selectCatalogList(page, paramMap);
         page.setRecords(catalogList);
         return page;
     }

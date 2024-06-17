@@ -1,10 +1,12 @@
 package com.example.demo.tutorial.multidb.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.example.demo.tutorial.multidb.entity.Catalog;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -13,5 +15,5 @@ import java.util.List;
  */
 @Repository
 public interface CatalogDao extends BaseMapper<Catalog> {
-    List<Catalog> selectCatalogList();
+    List<Catalog> selectCatalogList(Page<Catalog> page, Map<String,Object> paramMap);
 }
