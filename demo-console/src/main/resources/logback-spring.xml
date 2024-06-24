@@ -45,7 +45,11 @@
         </encoder>
     </appender>
 
-    <logger name="org.mybatis" level="INFO">
+    <logger name="org.mybatis" level="DEBUG">
+        <!-- 日志输出目的地 -->
+        <appender-ref ref="STDOUT"></appender-ref>
+    </logger>
+    <logger name="com.example.demo.tutorial.*.dao" level="DEBUG">
         <!-- 日志输出目的地 -->
         <appender-ref ref="STDOUT"></appender-ref>
     </logger>
