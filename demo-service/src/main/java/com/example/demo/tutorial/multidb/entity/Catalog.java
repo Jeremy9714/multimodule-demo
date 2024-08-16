@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Date;
  * @Version: 1.0
  */
 @Data
+@Accessors(chain = true)
 @TableName("catalog")
 public class Catalog implements Serializable {
     public static final long serialVersionUID = 3465345L;

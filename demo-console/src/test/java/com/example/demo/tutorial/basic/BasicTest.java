@@ -2,6 +2,8 @@ package com.example.demo.tutorial.basic;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.console.Application;
+import com.example.demo.tutorial.multidb.entity.Catalog;
+import com.example.demo.tutorial.multidb.service.CatalogService;
 import com.example.demo.tutorial.test.entity.PatternEntity;
 import com.example.demo.tutorial.test.service.PatternEntityService;
 import org.junit.Test;
@@ -10,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,6 +28,9 @@ public class BasicTest {
 
     @Autowired
     PatternEntityService patternEntityService;
+
+    @Autowired
+    CatalogService catalogService;
 
     @Test
     public void test1() {
@@ -48,5 +56,26 @@ public class BasicTest {
         entity.setName("abc");
         entity.setIdentityNum("321282200006013636");
         patternEntityService.printDetail(entity);
+    }
+
+    @Test
+    public void test4() {
+        Catalog catalog = catalogService.selectById("123123123123123");
+        System.out.println(catalog);
+    }
+
+    @Test
+    public void test5() {
+        List<String> strings = new ArrayList<>();
+        Arrays.asList(1,2,3);
+        strings.add("B");
+        strings.add("C");
+        strings.add("D");
+        strings.forEach(System.out::println);
+
+        System.out.println("======================");
+
+        strings.add(0, "A");
+        strings.forEach(System.out::println);
     }
 }

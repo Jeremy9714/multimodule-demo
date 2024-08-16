@@ -38,12 +38,22 @@ public class DbTest {
         list.forEach(item -> map.put(item.get("orgCode").toString(), item.get("sum")));
         System.out.println(map);
     }
-    
+
     @Test
-    public void insertTest1(){
+    public void insertTest1() {
         Catalog catalog = new Catalog();
         catalog.setId("1243");
         catalog.setCataCode("23423423");
         catalogService.insert(catalog);
+    }
+
+    @Test
+    public void test2() {
+        EntityWrapper<Catalog> wrapper = new EntityWrapper<>();
+        wrapper.setSqlSelect("count(1) as value, org_code as orgCode");
+        wrapper.groupBy("org_code");
+        wrapper.orderBy("value", false);
+        List<Map<String, Object>> list = catalogService.selectMaps(wrapper);
+        list.forEach(System.out::println);
     }
 }

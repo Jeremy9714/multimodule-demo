@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,4 +98,16 @@ public class MultiDbController extends BaseController {
         List<EntityB> dataFromTwo = multiDSService.getDataFromTwo();
         dataFromTwo.forEach(System.out::println);
     }
+
+//    @GetMapping("/test")
+//    public void test(HttpServletRequest request, HttpServletResponse response) {
+//        List<Catalog> list = new ArrayList<>();
+//        for (int i = 0; i < 3; ++i) {
+//            Catalog catalog = new Catalog();
+////            catalog.setId("123123123" + i);
+//            catalog.setCataCode("code" + i);
+//            list.add(catalog);
+//        }
+//        catalogService.insertOrUpdateBatch(list);
+//    }
 }
