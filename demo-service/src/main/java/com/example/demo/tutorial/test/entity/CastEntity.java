@@ -19,5 +19,7 @@ public class CastEntity implements Serializable {
 
     @TableId
     private String id;
+    
+    private String type;
 
 }

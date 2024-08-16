@@ -36,7 +36,7 @@ public class CastTest {
             JSONObject json = new JSONObject();
             json.put("id", dataObj.get("id"));
             json.put("type", dataObj.get("type"));
-            logger.info("参数为{}", json.toJSONString());
+            logger.info("参数为{}", json);
         }
     }
     
@@ -49,7 +49,20 @@ public class CastTest {
             json.put("id", dataObj.get("id"));
             json.put("type", dataObj.getIntValue("type"));
 //            json.put("type", Integer.parseInt(dataObj.getString("type")));
-            logger.info("参数为{}", json.toJSONString());
+            logger.info("参数为{}", json);
+        }
+    }
+    
+    @Test
+    public void test3(){
+        List<Map<String, Object>> allData = castEntityService.getAll();
+        for (Map<String, Object> data : allData) {
+            JSONObject dataObj = (JSONObject) JSONObject.toJSON(data);
+            JSONObject json = new JSONObject();
+            json.put("id", dataObj.get("id"));
+            json.put("type", dataObj.getIntValue("type"));
+            json.put("name", dataObj.get("name"));
+            logger.info("参数为{}", json);
         }
     }
 }
