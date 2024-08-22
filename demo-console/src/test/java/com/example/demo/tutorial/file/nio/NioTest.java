@@ -12,6 +12,7 @@ import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -105,7 +106,7 @@ public class NioTest {
                         System.out.println("======" + buffer + "======");
                         channel.write(buffer);
                     }
-                    System.out.println("======完成第次" + i + "发送");
+                    System.out.println("======完成第" + i + "次发送");
                 }
             }
         } catch (Exception e) {
@@ -136,6 +137,110 @@ public class NioTest {
         } finally {
             closeStream(is);
         }
+    }
+
+    @Test
+    public void test3_server2() {
+        ServerConnect.selector();
+    }
+
+    static class ServerConnect {
+        private static final int BUF_SIZE = 1024;
+        private static final int PORT = 12345;
+        private static final int TIMEOUT = 3000;
+
+        public static void handleAccept(SelectionKey key) throws IOException {
+            ServerSocketChannel serverChannel = (ServerSocketChannel) key.channel();
+            SocketChannel socketChannel = serverChannel.accept();
+            socketChannel.configureBlocking(false);
+            socketChannel.register(key.selector(), SelectionKey.OP_ACCEPT, ByteBuffer.allocate(BUF_SIZE));
+            System.out.println("======连接完毕======");
+        }
+
+        public static void handleRead(SelectionKey key) throws IOException {
+            SocketChannel channel = (SocketChannel) key.channel();
+            ByteBuffer buff = (ByteBuffer) key.attachment();
+            while (channel.read(buff) != -1) {
+                buff.flip();
+                while (buff.hasRemaining()) {
+                    System.out.println((char) buff.get());
+                }
+                System.out.println("======读取完毕======");
+                buff.clear();
+            }
+            channel.close();
+        }
+
+        public static void handleWrite(SelectionKey key) throws IOException {
+            SocketChannel channel = (SocketChannel) key.channel();
+            ByteBuffer buff = (ByteBuffer) key.attachment();
+            buff.flip();
+            while (buff.hasRemaining()) {
+                channel.write(buff);
+            }
+            System.out.println("======写入完毕======");
+            buff.compact();
+        }
+
+        public static void selector() {
+            Selector selector = null;
+            ServerSocketChannel channel = null;
+            try {
+                selector = Selector.open();
+                channel = ServerSocketChannel.open();
+                channel.socket().bind(new InetSocketAddress(PORT));
+                // 关闭阻塞
+                channel.configureBlocking(false);
+                // 注册channel到selector
+                channel.register(selector, SelectionKey.OP_ACCEPT);
+                while (true) {
+                    // 无就绪通道
+                    if (selector.select(TIMEOUT) == 0) {
+                        System.out.println("======无就绪channel======");
+                        continue;
+                    }
+                    // 获取就绪通道
+                    Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
+                    while (iterator.hasNext()) {
+                        SelectionKey key = iterator.next();
+                        if (key.isAcceptable()) {
+                            handleAccept(key);
+                        }
+                        if (key.isReadable()) {
+                            handleRead(key);
+                        }
+                        if (key.isWritable() && key.isValid()) {
+                            handleWrite(key);
+                        }
+                        if (key.isConnectable()) {
+                            System.out.println("====== [isConnectable=true] ======");
+                        }
+                        // 需要处理完后手动移除
+                        iterator.remove();
+                        System.out.println("======channel处理完毕======");
+                    }
+                }
+            } catch (Exception e) {
+                logger.error("连接错误", e);
+            } finally {
+                if (selector != null) {
+                    try {
+                        selector.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (channel != null) {
+                    try {
+                        channel.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        }
+
     }
 
     /**
