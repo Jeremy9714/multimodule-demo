@@ -8,14 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
+import java.net.*;
 import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Description:
@@ -89,11 +86,63 @@ public class NioTest {
         }
     }
 
+    @Test
+    public void test3_client() {
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
+        try (SocketChannel channel = SocketChannel.open();) {
+            channel.configureBlocking(false);
+            // 连接
+            channel.connect(new InetSocketAddress(InetAddress.getLocalHost(), 12345));
+            if (channel.finishConnect()) {
+                int i = 0;
+                while (i < 10) {
+                    TimeUnit.SECONDS.sleep(1);
+                    String info = "this is " + ++i + "th information input";
+                    buffer.clear();
+                    buffer.put(info.getBytes());
+                    buffer.flip();
+                    while (buffer.hasRemaining()) {
+                        System.out.println("======" + buffer + "======");
+                        channel.write(buffer);
+                    }
+                    System.out.println("======完成第次" + i + "发送");
+                }
+            }
+        } catch (Exception e) {
+            logger.error("链接报错", e);
+        }
+    }
+
+    @Test
+    public void test3_server() {
+        InputStream is = null;
+        try (ServerSocket server = new ServerSocket(12345);) {
+            int receMsgSize = 0;
+            byte[] bytes = new byte[1024];
+            while (true) {
+                Socket clientSocket = server.accept();
+                SocketAddress clientAddress = clientSocket.getRemoteSocketAddress();
+                System.out.println("======客户端地址: " + clientAddress + " ======");
+                is = clientSocket.getInputStream();
+                while ((receMsgSize = is.read(bytes)) != -1) {
+                    byte[] temp = new byte[receMsgSize];
+                    // 拷贝
+                    System.arraycopy(bytes, 0, temp, 0, receMsgSize);
+                    System.out.println("======" + new String(temp) + " ======");
+                }
+            }
+        } catch (Exception e) {
+            logger.error("连接错误", e);
+        } finally {
+            closeStream(is);
+        }
+    }
+
     /**
      * selector
      */
     @Test
-    public void test3() {
+    public void test4() {
         int interestSet = SelectionKey.OP_READ | SelectionKey.OP_WRITE;
         try (Selector selector = Selector.open()) {
             ServerSocketChannel ssc = ServerSocketChannel.open();
@@ -118,6 +167,16 @@ public class NioTest {
         if (channel != null) {
             try {
                 channel.close();
+            } catch (IOException e) {
+                logger.error("关闭失败", e);
+            }
+        }
+    }
+
+    private static void closeStream(Closeable closeable) {
+        if (closeable != null) {
+            try {
+                closeable.close();
             } catch (IOException e) {
                 logger.error("关闭失败", e);
             }
