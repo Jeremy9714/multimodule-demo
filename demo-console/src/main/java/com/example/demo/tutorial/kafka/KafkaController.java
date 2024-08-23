@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,7 +69,12 @@ public class KafkaController extends BaseController {
     }
 
     @KafkaListener(id = "webGroup", topics = {"test-topic"})
-    public void listen(String msg) {
+    public void listen(String msg, Acknowledgment ack) {
         logger.info("======kafka msg: {}", msg);
+        if ("k1".equals(msg)) {
+            // 手动提交偏移量
+            ack.acknowledge();
+        }
     }
+
 }
