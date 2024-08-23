@@ -4,8 +4,6 @@ import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.consumer.RangeAssignor;
-import org.apache.kafka.clients.consumer.RoundRobinAssignor;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -87,9 +85,24 @@ public class KafkaConfig {
         Map<String, Object> props = new HashMap<>();
         props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, brokerAddress);
         KafkaAdmin kafkaAdmin = new KafkaAdmin(props);
+//        kafkaAdmin.setFatalIfBrokerNotAvailable(true); // 默认false; broker不可用时，是否影响spring上下文的初始化
+//        kafkaAdmin.setAutoCreate(true); // 默认true; kafka实例化后是否自动创建已经实例化的NewTopic对象
+//        kafkaAdmin.initialize(); // setAutoCreate为false时，需要显示的调用该方法来初始化NewTopic对象
         return kafkaAdmin;
     }
+    
+//    @Bean
+//    public KafkaAdmin kafkaAdmin(KafkaProperties properties){
+//        KafkaAdmin kafkaAdmin = new KafkaAdmin(properties.buildAdminProperties());
+//        kafkaAdmin.setFatalIfBrokerNotAvailable(true);
+//        kafkaAdmin.setAutoCreate(true);
+//        return kafkaAdmin;
+//    }
 
+    /**
+     * kafka-client自带的AdminClient
+     * @return
+     */
     @Bean
     public AdminClient adminClient() {
         return AdminClient.create(kafkaAdmin().getConfig());

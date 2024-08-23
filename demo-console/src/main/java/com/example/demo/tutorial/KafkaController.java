@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,42 @@ public class KafkaController extends BaseController {
     @GetMapping("/send/{topic}/{msg}")
     public void sendMsg(@PathVariable("topic") String topic, @PathVariable("msg") String msg) {
         kafkaTemplate.send(topic, msg);
+    }
+
+    /**
+     * kafka事务
+     *
+     * @param topic
+     * @param msg
+     */
+    @GetMapping("/sendTx/{topic}/{msg}")
+    public void sendTxMsg(@PathVariable("topic") String topic, @PathVariable("msg") String msg) {
+        kafkaTemplate.executeInTransaction(t -> {
+            t.send(topic, "v1");
+            if ("error".equals(msg)) {
+                // 回滚
+                throw new RuntimeException("failed");
+            }
+            t.send(topic, "v2");
+            return true;
+        });
+    }
+
+    /**
+     * kafka事务
+     *
+     * @param topic
+     * @param msg
+     */
+    @Transactional(rollbackFor = RuntimeException.class)
+    @GetMapping("/sendTx2/{topic}/{msg}")
+    public void sendTxMsg2(@PathVariable("topic") String topic, @PathVariable("msg") String msg) {
+        kafkaTemplate.send(topic, "v3");
+        if ("error".equals(msg)) {
+            // 回滚
+            throw new RuntimeException("failed");
+        }
+        kafkaTemplate.send(topic, "v4");
     }
 
     @KafkaListener(id = "webGroup", topics = {"test-topic"})
