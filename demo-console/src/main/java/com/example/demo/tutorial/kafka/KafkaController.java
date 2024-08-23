@@ -4,6 +4,7 @@ import com.example.demo.controller.BaseController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.Acknowledgment;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Author: zhangchy05 on 2024/8/23 9:19
  * @Version: 1.0
  */
+@Profile("local")
 @RequestMapping("/kafka")
 @RestController
 public class KafkaController extends BaseController {

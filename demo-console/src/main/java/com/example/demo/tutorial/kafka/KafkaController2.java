@@ -6,6 +6,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
@@ -29,6 +30,7 @@ import java.util.concurrent.ExecutionException;
  * @Author: zhangchy05 on 2024/8/23 11:15
  * @Version: 1.0
  */
+@Profile("local")
 @Slf4j
 @RequestMapping("/kafka2")
 @RestController

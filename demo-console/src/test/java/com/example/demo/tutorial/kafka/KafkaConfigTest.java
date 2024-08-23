@@ -1,10 +1,6 @@
 package com.example.demo.tutorial.kafka;
 
-import com.example.demo.config.TopicAutoGenerateConfig;
 import com.example.demo.console.Application;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.AdminClientConfig;
@@ -17,7 +13,6 @@ import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.context.support.GenericWebApplicationContext;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
