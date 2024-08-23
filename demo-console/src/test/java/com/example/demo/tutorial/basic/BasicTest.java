@@ -5,17 +5,16 @@ import com.example.demo.console.Application;
 import com.example.demo.tutorial.multidb.entity.Catalog;
 import com.example.demo.tutorial.multidb.service.CatalogService;
 import com.example.demo.tutorial.test.entity.PatternEntity;
+import com.example.demo.tutorial.test.entity.Teacher;
 import com.example.demo.tutorial.test.service.PatternEntityService;
+import com.example.demo.tutorial.test.service.TeacherService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @Description:
@@ -31,6 +30,9 @@ public class BasicTest {
 
     @Autowired
     CatalogService catalogService;
+
+    @Autowired
+    TeacherService teacherService;
 
     @Test
     public void test1() {
@@ -67,7 +69,7 @@ public class BasicTest {
     @Test
     public void test5() {
         List<String> strings = new ArrayList<>();
-        Arrays.asList(1,2,3);
+        Arrays.asList(1, 2, 3);
         strings.add("B");
         strings.add("C");
         strings.add("D");
@@ -78,4 +80,13 @@ public class BasicTest {
         strings.add(0, "A");
         strings.forEach(System.out::println);
     }
+
+    @Test
+    public void test6() {
+        List<Teacher> allTeachers = teacherService.getAllTeacher(new HashMap<String, Object>() {{
+            put("name", "n");
+        }});
+        allTeachers.forEach(System.out::println);
+    }
+
 }
