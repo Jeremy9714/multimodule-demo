@@ -31,10 +31,11 @@ public class SwaggerConfig {
         boolean flag = environment.acceptsProfiles(profiles);
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(flag)
+                .groupName("测试模块")
                 .apiInfo(apiInfo())
                 .select()
 //                .apis(RequestHandlerSelectors.any())
-                .apis(RequestHandlerSelectors.basePackage("com.example.demo.es"))
+                .apis(RequestHandlerSelectors.basePackage("com.example.demo.tutorial"))
                 .build();
     }
 
