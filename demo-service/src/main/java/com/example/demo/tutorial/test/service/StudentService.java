@@ -12,4 +12,8 @@ import java.util.List;
  */
 public interface StudentService extends IService<Student> {
     List<Student> queryStudents();
+
+    List<Student> queryStudentByName(String name);
+
+    Integer updateStudentById(Student student);
 }
