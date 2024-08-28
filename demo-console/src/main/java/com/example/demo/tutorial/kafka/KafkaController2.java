@@ -17,6 +17,7 @@ import org.springframework.kafka.requestreply.ReplyingKafkaTemplate;
 import org.springframework.kafka.requestreply.RequestReplyFuture;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,6 +70,7 @@ public class KafkaController2 {
         RequestReplyFuture<String, String, String> replyFuture = replyingTemplate.sendAndReceive(record);
         ConsumerRecord<String, String> consumerRecord = replyFuture.get();
         log.info("======return value: {}", consumerRecord.value());
+//        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 回滚事务
     }
 
     @KafkaListener(id = "webGroup2", topics = {"test-topic2"})
