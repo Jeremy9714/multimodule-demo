@@ -46,6 +46,13 @@ public class ExtendPaginationInterceptor extends PaginationInterceptor {
     public ExtendPaginationInterceptor() {
     }
 
+    /**
+     * 分页拦截器
+     * 
+     * @param invocation
+     * @return
+     * @throws Throwable
+     */
     public Object intercept(Invocation invocation) throws Throwable {
         StatementHandler statementHandler = (StatementHandler) PluginUtils.realTarget(invocation.getTarget());
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);

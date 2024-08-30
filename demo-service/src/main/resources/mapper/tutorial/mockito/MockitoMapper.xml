@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.tutorial.mockito.dao.MockitoDao">
+    <select id="getAll" resultType="com.example.demo.tutorial.mockito.entity.MockitoEntity">
+        select *
+        from mockito_tbl
+    </select>
+
+    <select id="getEntity" parameterType="map" resultType="com.example.demo.tutorial.mockito.entity.MockitoEntity">
+        select * from mockito_tbl
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+</mapper>
