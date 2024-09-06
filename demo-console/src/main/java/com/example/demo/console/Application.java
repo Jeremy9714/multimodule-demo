@@ -13,6 +13,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @Description:
  * @Author: zhangchy05 on 2024/5/9 10:11
  * @Version: 1.0
+ * @SpringBootApplication等价于下面标签：
+ *   1. @Configuration
+ *   2. @EnableAutoConfiguration
+ *   3. @EnableWebMvc
+ *   4. @ComponentScan
+ * @ServletComponentScan
+ * 	 1. @WebListener
+ *   2. @WebFilter
+ *   3. @WebSevlet
  */
 @SpringBootApplication(scanBasePackages = {"com.example"}, exclude = {DataSourceAutoConfiguration.class})
 @EnableAsync
