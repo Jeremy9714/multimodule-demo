@@ -6,6 +6,7 @@ import com.example.demo.tutorial.test.service.StudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import java.util.List;
  * @Version: 1.0
  */
 @Api(tags = "测试控制器", value = "描述信息")
+@Profile("local")
 @Controller
 @RequestMapping
 public class TestController extends BaseController {

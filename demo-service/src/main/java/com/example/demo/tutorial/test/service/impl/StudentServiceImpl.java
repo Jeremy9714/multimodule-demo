@@ -13,6 +13,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -31,7 +32,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentDao, Student> impleme
         return studentDao.selectList(new EntityWrapper<>());
     }
 
-//    @Cacheable(value = "mycache", key = "#name")
+    //    @Cacheable(value = "mycache", key = "#name")
     @Override
     public List<Student> queryStudentByName(String name) {
         EntityWrapper<Student> wrapper = new EntityWrapper<>();
@@ -39,10 +40,20 @@ public class StudentServiceImpl extends ServiceImpl<StudentDao, Student> impleme
         return baseMapper.selectList(wrapper);
     }
 
-//    @CacheEvict(value = "mycache", allEntries = true)
+    //    @CacheEvict(value = "mycache", allEntries = true)
     @Override
     public Integer updateStudentById(Student student) {
         return baseMapper.updateById(student);
+    }
+
+    @Override
+    public List<Student> queryByMap(Map<String, Object> paramMap) {
+        String id = (String) paramMap.getOrDefault("id", "");
+        String name = (String) paramMap.getOrDefault("name", "");
+        EntityWrapper<Student> wrapper = new EntityWrapper<>();
+        wrapper.where("`name` like '%" + name + "%'");
+        wrapper.eq("id", id);
+        return studentDao.selectList(wrapper);
     }
 
 }

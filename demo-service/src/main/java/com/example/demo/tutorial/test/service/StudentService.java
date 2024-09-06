@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.service.IService;
 import com.example.demo.tutorial.test.entity.Student;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description:
@@ -16,4 +17,6 @@ public interface StudentService extends IService<Student> {
     List<Student> queryStudentByName(String name);
 
     Integer updateStudentById(Student student);
+
+    List<Student> queryByMap(Map<String, Object> paramMap);
 }

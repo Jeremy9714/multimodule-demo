@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.example.demo.console.Application;
 import com.example.demo.tutorial.multidb.entity.Catalog;
 import com.example.demo.tutorial.multidb.service.CatalogService;
+import com.example.demo.tutorial.test.entity.Student;
+import com.example.demo.tutorial.test.service.StudentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class DbTest {
 
     @Autowired
     CatalogService catalogService;
+
+    @Autowired
+    StudentService studentService;
 
     @Test
     public void test1() {
@@ -54,6 +59,15 @@ public class DbTest {
         wrapper.groupBy("org_code");
         wrapper.orderBy("value", false);
         List<Map<String, Object>> list = catalogService.selectMaps(wrapper);
+        list.forEach(System.out::println);
+    }
+
+    @Test
+    public void test3() {
+        Map<String, Object> paramMAp = new HashMap<>();
+        paramMAp.put("id", "2");
+        paramMAp.put("name", "n");
+        List<Student> list = studentService.queryByMap(paramMAp);
         list.forEach(System.out::println);
     }
 }
