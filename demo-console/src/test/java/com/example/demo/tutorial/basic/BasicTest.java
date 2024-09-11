@@ -4,6 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.demo.console.Application;
 import com.example.demo.tutorial.multidb.entity.Catalog;
 import com.example.demo.tutorial.multidb.service.CatalogService;
+import com.example.demo.tutorial.reflection.dao.ReflectionEntity;
+import com.example.demo.tutorial.rpc.entity.StudentRpc;
+import com.example.demo.tutorial.rpc.service.StudentRpcService;
 import com.example.demo.tutorial.test.entity.PatternEntity;
 import com.example.demo.tutorial.test.entity.Teacher;
 import com.example.demo.tutorial.test.service.PatternEntityService;
@@ -87,6 +90,18 @@ public class BasicTest {
             put("name", "n");
         }});
         allTeachers.forEach(System.out::println);
+    }
+    
+    @Test
+    public void test7(){
+//        Thread.yield();
+    }
+    
+    @Test
+    public void test8(){
+        ReflectionEntity<StudentRpcService> entity = new ReflectionEntity<>();
+        Class<StudentRpcService> type = entity.getType();
+        System.out.println(type.toString());
     }
 
 }
