@@ -1,0 +1,76 @@
+spring:
+  application:
+    name: demo2-job
+  config:
+    location: classpath:config/
+  mvc:
+    locale: zh_CN
+    date-format: yyyy/MM/dd
+  messages:
+    basename: classpath:locale/messages
+    encoding: UTF-8
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 150MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///db_master?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: ENC(hlOuoE0vTa6AaWUXy36dSQ==)
+  redis:
+    cluster:
+      nodes: 10.110.16.207:16379,10.110.16.207:16379,10.110.16.208:16379,10.110.16.208:16380,10.110.16.209:16380,10.110.16.209:16380
+      max-redirects: 3
+    database: 0
+    password: ENC(+dNiz80tUv09MiIDBb/n3L0X5LUHeWOo)
+    timeout: 3600
+    lettuce:
+      pool:
+        max-wait: -1
+        max-active: 300
+        max-idle: 100
+        min-idle: 20
+  flyway:
+    enabled: false
+    baseline-on-migrate: false
+    out-of-order: false
+    locations:
+      - classpath:db/migration
+
+server:
+  port: 20000
+  servlet:
+    context-path: /demo2/xxl-job
+    session:
+      timeout: 3000
+
+#mybatis-plus:
+#  mapper-locations: classpath:mapper/**/*.xml
+#  type-aliases-package: com.example.demo.**.entity
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    call-setters-on-nulls: true
+
+jasypt:
+  encryptor:
+    password: MyRandomPwd
+
+logging:
+  config: classpath:config/logback-spring.xml
+
+xxl-job:
+  admin:
+    addresses: http://127.0.0.1:18080/xxl-job-admin
+  executor:
+    appName: demo-job-executor
+    address:
+    ip:
+    port: 34567
+    logPath: /logs/xxl-job/
+    logRetentionDays: -1
+  accessToken: default_token
+
+global:
+  multi-datasource:
+    enable: 0
