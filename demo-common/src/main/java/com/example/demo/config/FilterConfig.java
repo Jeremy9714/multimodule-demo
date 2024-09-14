@@ -18,8 +18,8 @@ public class FilterConfig {
     public FilterRegistrationBean<RegistrationFilter> createRegistrationFilter() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new RegistrationFilter());
-//        registrationBean.addUrlPatterns(new String[]{"/static/*"});
-        registrationBean.addUrlPatterns(new String[]{"/*"});
+        registrationBean.addUrlPatterns(new String[]{"/static/*"});
+//        registrationBean.addUrlPatterns(new String[]{"/*"});
         registrationBean.setName("registrationFilter");
         registrationBean.setOrder(1);
         return registrationBean;

@@ -1,6 +1,8 @@
 package com.example.demo.filter.test;
 
+
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -11,8 +13,9 @@ import java.io.IOException;
 public class RegistrationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.println("======registrationBean拦截了方法======");
+        System.out.printf("======staticBean拦截了方法[%s]======", ((HttpServletRequest) request).getRequestURI());
+        System.out.println();
         chain.doFilter(request, response);
-        System.out.println("======registrationBean放行方法======");
+        System.out.println("======staticBean放行方法======");
     }
 }
