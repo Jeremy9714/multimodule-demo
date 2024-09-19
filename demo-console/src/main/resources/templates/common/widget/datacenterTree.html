@@ -1,0 +1,52 @@
+<section class="panel panel-default">
+    <header class="panel-heading">
+        <h3 class="panel-title">数据分区</h3>
+    </header>
+    <dic class="panel-body">
+        <dic id="datacenter-tree"></dic>
+    </dic>
+</section>
+
+<script src="${base!}/static/libs/vendor/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript"> 
+    var DEFAULT_CONTEXT_PATH = "";
+    
+    
+    $(function(){
+        DEFAULT_CONTEXT_PATH = "${base!}"; 
+        initTreeLeft();
+    });
+    
+    var initTreeLeft = function () {
+        let showUserArea = 0;
+        if($("#showUserArea").length > 0){
+            showUserArea = $("showUserArea").val();
+        }
+        $.ajax({
+            async: true,
+            "dataType":"json",
+            "method": "post",
+            url: DEFAULT_CONTEXT_PATH + "/datacenter/treedata?showUserArea=" + showUserArea,
+            success: function(json){
+                $("#datacenter-tree").jstree({
+                    "core": {
+                        "multiple": false,
+                        "themes": {
+                            "responsive": false
+                        },
+                        "data": json
+                    },
+                    "type": "default"
+                });
+            }
+        });
+        $("#datacenter-tree").bind("activate_node.jstree", function(obj,e){
+            // 获取当前节点
+           var currentNode = e.node; 
+           
+           datacenterTreeSelectListener(currentNode);
+        });
+    }
+</script>
+    
+</script>

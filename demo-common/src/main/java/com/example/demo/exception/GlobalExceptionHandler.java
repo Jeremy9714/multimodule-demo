@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.RequestContextHolder;
-import cn.hutool.core.util.ObjectUtil;
 
 /**
  * @Description:
@@ -24,4 +23,5 @@ public class GlobalExceptionHandler {
         log.error("异常：requestId[{}]，错误信息：{}", requestId, JSONUtils.toJSONString(be));
         return new AjaxResult<>(be.getErrorCode(), be.getErrorMessage(), null);
     }
+    
 }
