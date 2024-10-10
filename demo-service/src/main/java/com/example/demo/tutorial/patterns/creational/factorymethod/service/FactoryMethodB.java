@@ -1,7 +1,7 @@
 package com.example.demo.tutorial.patterns.creational.factorymethod.service;
 
 import com.example.demo.tutorial.patterns.creational.factorymethod.entity.FactoryMethodWorkshop;
-import com.example.demo.tutorial.patterns.creational.factorymethod.entity.factoryMethodWorkshopB;
+import com.example.demo.tutorial.patterns.creational.factorymethod.entity.FactoryMethodWorkshopB;
 
 /**
  * @Description:
@@ -11,6 +11,6 @@ import com.example.demo.tutorial.patterns.creational.factorymethod.entity.factor
 public class FactoryMethodB implements FactoryMethod {
     @Override
     public FactoryMethodWorkshop product() {
-        return new factoryMethodWorkshopB();
+        return new FactoryMethodWorkshopB();
     }
 }
