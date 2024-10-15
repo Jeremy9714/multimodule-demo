@@ -22,6 +22,7 @@
         <module>demo-common</module>
         <module>demo-console</module>
         <module>demo-job</module>
+<!--        <module>demo-hadoop</module>-->
     </modules>
     <!-- 下载依赖用的仓库地址 用户密码在settings.xml -->
     <repositories>
